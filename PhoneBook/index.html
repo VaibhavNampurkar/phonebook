@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Phone Contact List</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <link data-require="bootstrap@4.0.5"
+          data-semver="4.0.5"
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+    <script data-require="bootstrap@4.0.5"
+            data-semver="4.0.5"
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link href="../css/style.css" rel="stylesheet" />
+    <script src="../scripts/phoneBook.js"></script>
+</head>
+<body class="container"
+      ng-app="myApp"
+      ng-controller="contactController"
+      ng-cloak>
+    <br />
+    <header class="row justify-content-center">
+        <h3>Phone Book</h3>
+    </header>
+    <br />
+    <form name="phoneBookForm">
+        <div class="form-group">
+            <label class="control-label col-md-5">First Name</label>
+            <div class="col-md-5">
+                <input type="text"
+                       name="firstName"
+                       ng-model="newContact.firstName"
+                       required
+                       ng-minlength="3"
+                       ng-maxlength="20" />
+                <div ng-messages="phoneBookForm.firstName.$error">
+                    <p ng-if="phoneBookForm.firstName.$touched && phoneBookForm.firstName.$error.minlength"
+                       ng-message="minlength">
+                        First name should have at least 3 characters.
+                    </p>
+                    <p ng-if="phoneBookForm.firstName.$touched && phoneBookForm.firstName.$error.maxlength"
+                       ng-message="maxlength">
+                        First name should have at most 20 characters.
+                    </p>
+                    <p ng-if="phoneBookForm.firstName.$touched && phoneBookForm.firstName.$error.required"
+                       ng-message="required">
+                        The first name is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-5">Last Name</label>
+            <div class="col-md-5">
+                <input type="text"
+                       name="lastName"
+                       ng-model="newContact.lastName"
+                       required
+                       ng-minlength="3"
+                       ng-maxlength="20" />
+                <div ng-messages="phoneBookForm.lastName.$error">
+                    <p ng-if="phoneBookForm.lastName.$touched && phoneBookForm.lastName.$error.minlength"
+                       ng-message="minlength">
+                        Last name should have at least 3 characters.
+                    </p>
+                    <p ng-if="phoneBookForm.lastName.$touched && phoneBookForm.lastName.$error.maxlength"
+                       ng-message="maxlength">
+                        Last name should have at most 20 characters.
+                    </p>
+                    <p ng-if="phoneBookForm.lastName.$touched && phoneBookForm.lastName.$error.required"
+                       ng-message="required">
+                        The last name is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-5">Phone</label>
+            <div class="col-md-5">
+                <input type="text"
+                       name="phone"
+                       ng-model="newContact.phone"
+                       required
+                       ng-maxlength="15"
+                       ng-minlength="10"
+                       ng-pattern="/^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/" />
+                <div ng-messages="phoneBookForm.phone.$error">
+                    <p ng-if="phoneBookForm.phone.$touched && phoneBookForm.phone.$error.minlength"
+                       ng-message="minlength">
+                        Phone should have at least 10 characters.
+                    </p>
+                    <p ng-if="phoneBookForm.phone.$touched && phoneBookForm.phone.$error.maxlength"
+                       ng-message="maxlength">
+                        Phone should not exceed 15 characters.
+                    </p>
+                    <p ng-if="phoneBookForm.phone.$touched && phoneBookForm.phone.$error.required"
+                       ng-message="required">
+                        The phone is required.
+                    </p>
+                    <p ng-if="phoneBookForm.phone.$touched && phoneBookForm.phone.$error.pattern"
+                       ng-message="required">
+                        Invalid phone. Please enter a valid phone number.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="hidden" ng-model="newContact.id" />
+            <input type="button"
+                   class="btn btn-success"
+                   value="Save"
+                   style="cursor:pointer"
+                   ng-disabled="phoneBookForm.$invalid"
+                   ng-click="saveContact()"
+                   required />
+        </div>
+    </form>
+    <br />
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="contact in contacts">
+                <td>{{contact.id}}</td>
+                <td>{{contact.firstName}}</td>
+                <td>{{contact.lastName}}</td>
+                <td>{{contact.phone}}</td>
+                <td>
+                    <a href="#" ng-click="edit(contact.id)">Edit</a>
+                </td>
+                <td>
+                    <a href="#" ng-click="delete(contact.id)">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

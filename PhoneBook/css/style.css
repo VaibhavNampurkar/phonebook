@@ -1,0 +1,13 @@
+﻿input.ng-invalid {
+    background-color: pink;
+}
+
+input.ng-valid {
+    background-color: lightgreen;
+}
+
+.center {
+    margin-top: 30px !important;
+    margin-left: auto;
+    margin-right: auto;
+}
