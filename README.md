@@ -19,4 +19,10 @@ In case if you are not able to deploy or run the application, you can find the p
 
 https://plnkr.co/edit/41IPSqfYdxMwxru8?open=lib%2Fscript.js
 
-# 
+# Note
+
+The app created is a very basic CRUD app and it does not involve any Web API calls as well as no multiple views. Henceforth the application structure does not have MVC folder structure but in real world application the front end as well as backend both contains MVC structure in Angular project.
+
+# Scope
+
+The application can be further optimised to create proper directives and valiations and MVC structure going ahead.
